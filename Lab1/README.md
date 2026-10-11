@@ -62,7 +62,7 @@ erDiagram
 | url | TEXT | Ссылка на объявление |
 | author | TEXT | Автор объявления |
 | author_type | TEXT | Тип автора (агентство, собственник и т.д.) |
-| location | TEXT | Полный адрес одной строкой |
+| location | TEXT | Город |
 | deal_type | TEXT | Тип сделки (продажа, аренда) |
 | accommodation_type | TEXT | Тип жилья (квартира, апартаменты и т.д.) |
 | floor | INTEGER | Этаж |
@@ -93,7 +93,35 @@ erDiagram
 | price_changes | INTEGER | У скольких объявлений изменилась цена |
 | deactivated | INTEGER | Сколько объявлений помечено неактивными |
 
-Таблицы между собой внешними ключами не связаны.
+┌──────────────────────────────┐                    ┌─────────────────────────────────┐
+│         IMPORT_LOG           │                    │           LISTINGS              │
+│──────────────────────────────│                    │─────────────────────────────────│
+│ PK  id                       │                    │ PK  id                          │
+│    source_file               │                    │ FK  import_log_id               │
+│    snapshot_at               │                    │    url                          │
+│    imported_at               │                    │    author                       │
+│    rows_in_file              │                    │    author_type                  │
+│    unique_listings           │                    │    location                     │
+│    inserted                  │                    │    deal_type                    │
+│    updated                   │                    │    accommodation_type           │
+│    price_changes             │                    │    floor                        │
+│    deactivated               │                    │    floors_count                 │
+└──────────────┬───────────────┘                    │    rooms_count                  │
+               │                                    │    total_meters                 │
+               │ 1                                  │    price                        │
+               │                                    │    price_per_m2                 │
+               │ (неидентифицирующая)               │    district                     │
+               │                                    │    street                       │
+               │ M                                  │    house_number                 │
+               ─────────────────────────────────────│   underground                   │
+                                                    │    residential_complex          │
+                                                    │    is_active                    │
+                                                    └─────────────────────────────────┘
+               
+
+Таблица import_log нужна для ...
+В таблице listings содержится небходимая для анализа  информация.
+
 ## 3. Запросы к базе данных
 Запросы были написаны с помощью модулей sqlalchemy и pandas. Для удобства работы все запросы были выполены в Colab. 
 

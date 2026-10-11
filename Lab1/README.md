@@ -54,7 +54,32 @@
 | price_changes | INTEGER | У скольких объявлений изменилась цена |
 | deactivated | INTEGER | Сколько объявлений помечено неактивными |
 
-![](schem.png)
+```text
+┌──────────────────────────────────┐  1         M  ┌──────────────────────────────────────┐
+│           IMPORT_LOG             │───────────────│              LISTINGS                │
+│──────────────────────────────────│               │──────────────────────────────────────│
+│ PK  id                           │               │ PK  id                               │
+│     source_file                  │               │ FK  import_log_id                    │
+│     snapshot_at                  │               │     url                              │
+│     imported_at                  │               │     author                           │
+│     rows_in_file                 │               │     author_type                      │
+│     unique_listings              │               │     location                         │
+│     inserted                     │               │     deal_type                        │
+│     updated                      │               │     accommodation_type               │
+│     price_changes                │               │     floor                            │
+│     deactivated                  │               │     floors_count                     │
+└──────────────────────────────────┘               │     rooms_count                      │
+                                                   │     total_meters                     │
+                                                   │     price                            │
+                                                   │     price_per_m2                     │
+                                                   │     district                         │
+                                                   │     street                           │
+                                                   │     house_number                     │
+                                                   │     underground                      │
+                                                   │     residential_complex              │
+                                                   │     is_active                        │
+                                                   └──────────────────────────────────────┘
+```
 
 Таблица import_log нужна для ЯРИК НАПИШИ ТУТ ЧТО ТО
 

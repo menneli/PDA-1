@@ -17,43 +17,6 @@
 
 База `cian.db` (SQLite) содержит две таблицы: `listings` с объявлениями и `import_log` с журналом импортов.
 
-```mermaid
-erDiagram
-    listings {
-        INTEGER id PK
-        TEXT url
-        TEXT author
-        TEXT author_type
-        TEXT location
-        TEXT deal_type
-        TEXT accommodation_type
-        INTEGER floor
-        INTEGER floors_count
-        INTEGER rooms_count
-        REAL total_meters
-        INTEGER price
-        REAL price_per_m2
-        TEXT district
-        TEXT street
-        TEXT house_number
-        TEXT underground
-        TEXT residential_complex
-        INTEGER is_active
-    }
-    import_log {
-        INTEGER id PK
-        TEXT source_file
-        TEXT snapshot_at
-        TEXT imported_at
-        INTEGER rows_in_file
-        INTEGER unique_listings
-        INTEGER inserted
-        INTEGER updated
-        INTEGER price_changes
-        INTEGER deactivated
-    }
-```
-
 #### Таблица `listings` (19 колонок)
 
 | Колонка | Тип | Описание |
@@ -93,33 +56,35 @@ erDiagram
 | price_changes | INTEGER | У скольких объявлений изменилась цена |
 | deactivated | INTEGER | Сколько объявлений помечено неактивными |
 
-┌──────────────────────────────┐                    ┌─────────────────────────────────┐
-│         IMPORT_LOG           │                    │           LISTINGS              │
-│──────────────────────────────│                    │─────────────────────────────────│
-│ PK  id                       │                    │ PK  id                          │
-│    source_file               │                    │ FK  import_log_id               │
-│    snapshot_at               │                    │    url                          │
-│    imported_at               │                    │    author                       │
-│    rows_in_file              │                    │    author_type                  │
-│    unique_listings           │                    │    location                     │
-│    inserted                  │                    │    deal_type                    │
-│    updated                   │                    │    accommodation_type           │
-│    price_changes             │                    │    floor                        │
-│    deactivated               │                    │    floors_count                 │
-└──────────────┬───────────────┘                    │    rooms_count                  │
-               │                                    │    total_meters                 │
-               │ 1                                  │    price                        │
-               │                                    │    price_per_m2                 │
-               │ (неидентифицирующая)               │    district                     │
-               │                                    │    street                       │
-               │ M                                  │    house_number                 │
-               ─────────────────────────────────────│   underground                   │
-                                                    │    residential_complex          │
-                                                    │    is_active                    │
-                                                    └─────────────────────────────────┘
-               
+`
+┌──────────────────────────────────┐  1         M  ┌──────────────────────────────────────┐
+│           IMPORT_LOG             │───────────────│              LISTINGS                │
+│──────────────────────────────────│               │──────────────────────────────────────│
+│ PK  id                           │               │ PK  id                               │
+│     source_file                  │               │ FK  import_log_id                    │
+│     snapshot_at                  │               │     url                              │
+│     imported_at                  │               │     author                           │
+│     rows_in_file                 │               │     author_type                      │
+│     unique_listings              │               │     location                         │
+│     inserted                     │               │     deal_type                        │
+│     updated                      │               │     accommodation_type               │
+│     price_changes                │               │     floor                            │
+│     deactivated                  │               │     floors_count                     │
+──────────────────────────────────┘                │     rooms_count                      │
+                                                   │     total_meters                     │
+                                                   │     price                            │
+                                                   │     price_per_m2                     │
+                                                   │     district                         │
+                                                   │     street                           │
+                                                   │     house_number                     │
+                                                   │     underground                      │
+                                                   │     residential_complex              │
+                                                   │     is_active                        │
+                                                   └──────────────────────────────────────┘
+`
 
 Таблица import_log нужна для ЯРИК НАПИШИ ТУТ ЧТО ТО
+
 В таблице listings содержится небходимая для анализа  информация.
 
 ## 3. Запросы к базе данных

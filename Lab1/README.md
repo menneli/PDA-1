@@ -27,7 +27,7 @@ Lab1/
 
 ### Структура базы данных 
 
-База `cian.db` (SQLite) содержит две таблицы: `listings` с объявлениями и `import_log` с журналом импортов.
+База `cian.db` (SQLite) содержит таблицу `listings` с объявлениями.
 
 #### Таблица `listings` (19 колонок)
 
@@ -55,34 +55,34 @@ Lab1/
 
 ### Схема базы данных
 ```text
-┌──────────────────────────────────┐  1         M  ┌──────────────────────────────────────┐
-│           IMPORT_LOG             │───────────────│              LISTINGS                │
-│──────────────────────────────────│               │──────────────────────────────────────│
-│ PK  id                           │               │ PK  id                               │
-│     source_file                  │               │ FK  import_log_id                    │
-│     snapshot_at                  │               │     url                              │
-│     imported_at                  │               │     author                           │
-│     rows_in_file                 │               │     author_type                      │
-│     unique_listings              │               │     location                         │
-│     inserted                     │               │     deal_type                        │
-│     updated                      │               │     accommodation_type               │
-│     price_changes                │               │     floor                            │
-│     deactivated                  │               │     floors_count                     │
-└──────────────────────────────────┘               │     rooms_count                      │
-                                                   │     total_meters                     │
-                                                   │     price                            │
-                                                   │     price_per_m2                     │
-                                                   │     district                         │
-                                                   │     street                           │
-                                                   │     house_number                     │
-                                                   │     underground                      │
-                                                   │     residential_complex              │
-                                                   └──────────────────────────────────────┘
+┌──────────────────────────────────────┐
+│              LISTINGS                │
+│──────────────────────────────────────│
+│ PK  id                               │
+│ FK  import_log_id                    │
+│     url                              │
+│     author                           │
+│     author_type                      │
+│     location                         │
+│     deal_type                        │
+│     accommodation_type               │
+│     floor                            │
+│     floors_count                     │
+│     rooms_count                      │
+│     total_meters                     │
+│     price                            │
+│     price_per_m2                     │
+│     district                         │
+│     street                           │
+│     house_number                     │
+│     underground                      │
+│     residential_complex              │
+└──────────────────────────────────────┘
 ```
 
-В таблице listings содержится небходимая для анализа  информация.
 
 ## 3. Запросы к базе данных
 Запросы были написаны с помощью модулей sqlalchemy и pandas. Для удобства работы все запросы были выполены в Colab. 
+[Cсылка на колаб](https://colab.research.google.com/drive/1SkXPisISeM-JnRmTKv1PXT8rJclGctOz?usp=sharing)
 
 

@@ -59,7 +59,6 @@ Lab1/
 │              LISTINGS                │
 │──────────────────────────────────────│
 │ PK  id                               │
-│ FK  import_log_id                    │
 │     url                              │
 │     author                           │
 │     author_type                      │
